@@ -12,6 +12,7 @@ class Detector(nn.Module):
         self.stage_out_channels = [-1, 24, 48, 96, 192]
         self.backbone = ShuffleNetV2(self.stage_repeats, self.stage_out_channels, load_param)
 
+        # self.upsample = nn.Upsample(size=[5, 64], mode='nearest')
         self.upsample = nn.Upsample(scale_factor=2, mode='nearest')
         self.avg_pool = nn.AvgPool2d(kernel_size=3, stride=2, padding=1)
         self.SPP = SPP(sum(self.stage_out_channels[-3:]), self.stage_out_channels[-2])
